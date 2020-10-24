@@ -4,25 +4,27 @@ import java.util.Date;
 
 public class Message {
 
-    private String title;
+    private String id;
     private String message;
     private Date dateTime;
+    private String username;
 
     public Message() {
     }
 
-    public Message(String title, String message, Date dateTime) {
-        this.title = title;
+    public Message(String id, String message, Date dateTime, String username) {
+        this.id = id;
         this.message = message;
         this.dateTime = dateTime;
+        this.username = username;
     }
 
-    public String getTitle() {
-        return title;
+    public String getId() {
+        return id;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getMessage() {
@@ -44,9 +46,18 @@ public class Message {
     @Override
     public String toString() {
         return "Message{" +
-                "title='" + title + '\'' +
+                "id='" + id + '\'' +
                 ", message='" + message + '\'' +
                 ", dateTime=" + dateTime +
+                ", username='" + username + '\'' +
                 '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

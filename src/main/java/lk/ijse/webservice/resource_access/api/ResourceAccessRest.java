@@ -2,6 +2,7 @@ package lk.ijse.webservice.resource_access.api;
 
 import com.google.gson.Gson;
 import lk.ijse.webservice.resource_access.modal.Message;
+import lk.ijse.webservice.resource_access.modal.User;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,19 +27,17 @@ public class ResourceAccessRest extends HttpServlet {
             System.out.println(e);
         }
 
-        req.getSession().getServletContext().setAttribute("name", "abc");
-
         String payloadString = jb.toString();
-
         Gson gson = new Gson();
-        Message msg = gson.fromJson(payloadString, Message.class);
-        System.out.println(msg);
+        User user = gson.fromJson(payloadString, User.class);
+        req.getSession().setAttribute("name", user.getName());
 
         req.getSession().setAttribute("session_key", System.nanoTime());
-        System.out.println("Session Key : " + req.getSession().getAttribute("session_key"));
+        System.out.println("Login_Session Key : " + req.getSession().getAttribute("session_key"));
+
+        resp.getWriter().println("LoginName"+user);
 
 
-        resp.getWriter().println("OK");
     }
 
     protected void doGet(
@@ -46,17 +45,18 @@ public class ResourceAccessRest extends HttpServlet {
             HttpServletResponse res)
             throws ServletException, IOException {
 
-        Message message = new Message("Test", "Message", new Date());
+        Message message = new Message("Test", "Message", new Date(),"Kavindu");
         Gson gson = new Gson();
         String json = gson.toJson(message);
 
         System.out.println("Session Key : " + req.getSession().getAttribute("session_key"));
-        System.out.println("Application Scope Name "+req.getSession().getServletContext().getAttribute("name"));
+        System.out.println("Application Scope Name " + req.getSession().getServletContext().getAttribute("name"));
 
 
         res.setContentType("application/json");
         res.setStatus(HttpServletResponse.SC_OK);
         res.getWriter().println(json);
     }
+
 
 }
