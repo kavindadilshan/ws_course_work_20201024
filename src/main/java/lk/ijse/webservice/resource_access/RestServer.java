@@ -1,5 +1,6 @@
 package lk.ijse.webservice.resource_access;
 
+import lk.ijse.webservice.resource_access.api.MessageAccessRest;
 import lk.ijse.webservice.resource_access.api.ResourceAccessRest;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
@@ -21,9 +22,16 @@ public class RestServer {
         ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
         context.setContextPath("/");
 
-        context.addServlet(ResourceAccessRest.class, "/hello");
+        context.addServlet(ResourceAccessRest.class, "/connect");
+        context.addServlet(MessageAccessRest.class, "/message");
+        context.addServlet(MessageAccessRest.class, "/getmessage");
+
         server.setHandler(context);
         server.start();
         server.join();
     }
+
+
+
+
 }
