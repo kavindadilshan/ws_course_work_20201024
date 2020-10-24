@@ -34,8 +34,8 @@ public class MessageAccessRest extends HttpServlet {
         Gson gson = new Gson();
         Message message = gson.fromJson(payloadString, Message.class);
 
-
-        req.getSession().getServletContext().setAttribute("name", message.getMessage());
+//get
+        req.getSession().getServletContext().setAttribute("message", message.getMessage());
 
         req.getSession().setAttribute("session_key", System.nanoTime());
 
